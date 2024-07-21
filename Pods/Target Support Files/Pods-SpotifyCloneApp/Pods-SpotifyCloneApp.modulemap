@@ -1,0 +1,6 @@
+framework module Pods_SpotifyCloneApp {
+  umbrella header "Pods-SpotifyCloneApp-umbrella.h"
+
+  export *
+  module * { export * }
+}

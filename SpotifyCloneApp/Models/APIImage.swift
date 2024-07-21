@@ -1,5 +1,5 @@
 //
-//  UserImage.swift
+//  APIImage.swift
 //  SpotifyCloneApp
 //
 //  Created by Kadir Yildiz on 17/7/2024.
