@@ -22,6 +22,7 @@
 		1F6B516B2C510DE10025D3F1 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6B516A2C510DE10025D3F1 /* AlbumViewController.swift */; };
 		1F6B516D2C5112300025D3F1 /* AlbumDetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6B516C2C5112300025D3F1 /* AlbumDetailsResponse.swift */; };
 		1F6B516F2C511D080025D3F1 /* PlaylistDetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6B516E2C511D080025D3F1 /* PlaylistDetailsResponse.swift */; };
+		1F72F2142C53C1C400A8FD67 /* PlaylistHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F72F2132C53C1C400A8FD67 /* PlaylistHeaderCollectionReusableView.swift */; };
 		1FDC6F9E2C3D07A600DCC511 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDC6F9D2C3D07A600DCC511 /* AppDelegate.swift */; };
 		1FDC6FA02C3D07A600DCC511 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDC6F9F2C3D07A600DCC511 /* SceneDelegate.swift */; };
 		1FDC6FA22C3D07A600DCC511 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDC6FA12C3D07A600DCC511 /* HomeViewController.swift */; };
@@ -66,6 +67,7 @@
 		1F6B516A2C510DE10025D3F1 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		1F6B516C2C5112300025D3F1 /* AlbumDetailsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailsResponse.swift; sourceTree = "<group>"; };
 		1F6B516E2C511D080025D3F1 /* PlaylistDetailsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistDetailsResponse.swift; sourceTree = "<group>"; };
+		1F72F2132C53C1C400A8FD67 /* PlaylistHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		1FDC6F9A2C3D07A600DCC511 /* SpotifyCloneApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpotifyCloneApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FDC6F9D2C3D07A600DCC511 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FDC6F9F2C3D07A600DCC511 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 			children = (
 				1F57DE682C4E796500E8CCBE /* Browse */,
 				1FDC6FAB2C3D07A700DCC511 /* LaunchScreen.storyboard */,
+				1F72F2132C53C1C400A8FD67 /* PlaylistHeaderCollectionReusableView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -402,6 +405,7 @@
 				1FDC6FD42C3DFE8D00DCC511 /* APICaller.swift in Sources */,
 				1FDC6FD62C3DFE9D00DCC511 /* HapticsManager.swift in Sources */,
 				1FDC6FD82C3DFEC300DCC511 /* PlayList.swift in Sources */,
+				1F72F2142C53C1C400A8FD67 /* PlaylistHeaderCollectionReusableView.swift in Sources */,
 				1F6B516D2C5112300025D3F1 /* AlbumDetailsResponse.swift in Sources */,
 				1FDC6FCC2C3DFD0200DCC511 /* PlayerViewController.swift in Sources */,
 				1FDC6F9E2C3D07A600DCC511 /* AppDelegate.swift in Sources */,
