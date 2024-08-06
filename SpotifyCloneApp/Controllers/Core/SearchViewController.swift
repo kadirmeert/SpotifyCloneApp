@@ -12,7 +12,7 @@ class SearchViewController: UIViewController, UISearchResultsUpdating {
     
     let searchController: UISearchController = {
         let vc = UISearchController(searchResultsController: SearchResultsViewController())
-        vc.searchBar.placeholder = "Songs, Artists, Albums"
+        vc.searchBar.placeholder = "What do you want to listen to?"
         vc.searchBar.searchBarStyle = .minimal
         vc.definesPresentationContext = true
         return vc
@@ -84,6 +84,11 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
         cell.configure(with: CategoryCollectionViewCellViewModel(titles: category.name, artworkURL: URL(string: category.icons.first?.url ?? "")))
         return cell
     }
-    
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        let category = categories[indexPath.row]
+        let vc = CategoryViewController(category: category)
+        vc.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
