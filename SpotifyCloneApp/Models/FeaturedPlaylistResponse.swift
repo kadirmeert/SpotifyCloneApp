@@ -16,7 +16,7 @@ struct CategoryPlaylistResponse: Codable {
 }
 
 struct PlaylistResponse: Codable {
-    let items: [Playlists]
+    let items: [Playlist]
 }
 
 

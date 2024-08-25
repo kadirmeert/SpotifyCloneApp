@@ -9,7 +9,7 @@ import UIKit
 
 class PlaylistViewController: UIViewController {
     
-    private let playList: Playlists
+    private let playList: Playlist
     
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout(sectionProvider: { _, _ -> NSCollectionLayoutSection? in
         let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension:.fractionalHeight(1.0)))
@@ -31,7 +31,7 @@ class PlaylistViewController: UIViewController {
     
     
     
-    init(playList: Playlists) {
+    init(playList: Playlist) {
         self.playList = playList
         super.init(nibName: nil, bundle: nil)
     }

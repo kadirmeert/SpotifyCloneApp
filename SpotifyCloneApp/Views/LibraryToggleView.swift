@@ -62,7 +62,7 @@ class LibraryToggleView: UIView {
     
     @objc private func didTapPlaylists() {
         state = .playlist
-        UIView.animate(withDuration: 0.1) {
+        UIView.animate(withDuration: 0.2) {
             self.layoutIndicator()
         }
         delegate?.LibraryToggleViewDidTapPlaylists(self)
@@ -70,7 +70,7 @@ class LibraryToggleView: UIView {
     
     @objc private func didTapAlbums() {
         state = .album
-        UIView.animate(withDuration: 0.1) {
+        UIView.animate(withDuration: 0.2) {
             self.layoutIndicator()
         }
         delegate?.LibraryToggleViewDidTapAlbums(self)
@@ -97,7 +97,7 @@ class LibraryToggleView: UIView {
     
     func update(for state: State) {
         self.state = state
-        UIView.animate(withDuration: 0.1) {
+        UIView.animate(withDuration: 0.2) {
             self.layoutIndicator()
         }
     }

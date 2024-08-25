@@ -30,7 +30,7 @@ class CategoryViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private var playlists = [Playlists]()
+    private var playlists = [Playlist]()
 
     
     //MARK: - Lifecycle

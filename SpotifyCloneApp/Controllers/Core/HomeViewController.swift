@@ -28,7 +28,7 @@ enum BrowseSectionType {
 class HomeViewController: UIViewController {
     
     private var newAlbums: [Album] = []
-    private var playlists: [Playlists] = []
+    private var playlists: [Playlist] = []
     private var tracks: [AudioTrack] = []
     
     private var collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout { sectionIndex, _ -> NSCollectionLayoutSection? in
@@ -148,7 +148,7 @@ class HomeViewController: UIViewController {
         }
     }
 
-    private func configureModels(newAlbums: [Album], playlists: [Playlists], tracks: [AudioTrack]) {
+    private func configureModels(newAlbums: [Album], playlists: [Playlist], tracks: [AudioTrack]) {
         self.newAlbums = newAlbums
         self.playlists = playlists
         self.tracks = tracks
