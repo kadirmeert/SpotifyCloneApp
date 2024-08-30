@@ -8,5 +8,5 @@
 import Foundation
 
 struct APIImage: Codable {
-    let url: String
+    let url: String?
 }

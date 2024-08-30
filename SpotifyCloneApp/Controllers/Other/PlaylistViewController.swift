@@ -109,7 +109,7 @@ extension PlaylistViewController: UICollectionViewDelegate, UICollectionViewData
             kind == UICollectionView.elementKindSectionHeader else {
             return UICollectionReusableView()
         }
-        let headerViewModel = PlaylistHeaderViewViewModel(name: playList.name, ownerName: playList.owner.display_name, description: playList.description, artworkURL: URL(string: playList.images.first?.url ?? ""))
+        let headerViewModel = PlaylistHeaderViewViewModel(name: playList.name, ownerName: playList.owner.display_name, description: playList.description, artworkURL: URL(string: playList.images?.first?.url ?? ""))
         header.configure(with: headerViewModel)
         header.delegate = self
         return header

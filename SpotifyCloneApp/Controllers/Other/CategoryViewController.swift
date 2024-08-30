@@ -73,7 +73,7 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
             return UICollectionViewCell()
         }
         let playlist = playlists[indexPath.row]
-        cell.configure(with: FeaturedPlaylistCellViewModel(name: playlist.name, artworkURL: URL(string: playlist.images.first?.url ?? "")))
+        cell.configure(with: FeaturedPlaylistCellViewModel(name: playlist.name ?? "", artworkURL: URL(string: playlist.images?.first?.url ?? "")))
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

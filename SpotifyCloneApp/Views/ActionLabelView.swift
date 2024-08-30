@@ -12,7 +12,7 @@ struct ActionLabelViewViewModel {
     let actionTitle: String
 }
 
-protocol ActionLabelViewDelegate: AnyObject {
+ protocol ActionLabelViewDelegate: AnyObject {
     func actionLabelViewDidTapButton(_ actionView: ActionLabelView)
 }
 
@@ -37,7 +37,7 @@ class ActionLabelView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         clipsToBounds = true
-        isHidden = true 
+        isHidden = true
         addSubview(label)
         addSubview(button)
         button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)

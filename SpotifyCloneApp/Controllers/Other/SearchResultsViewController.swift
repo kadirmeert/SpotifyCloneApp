@@ -117,7 +117,7 @@ class SearchResultsViewController: UIViewController, UITableViewDelegate, UITabl
             guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultSubtitleTableViewCell.identifier, for: indexPath) as? SearchResultSubtitleTableViewCell else {
                 return UITableViewCell()
             }
-            let viewModel = SearchResultSubtitleTableViewCellViewModel(title: playlist.name, subtitle: playlist.owner.display_name, imageURL: URL(string: playlist.images.first?.url ?? "" ))
+            let viewModel = SearchResultSubtitleTableViewCellViewModel(title: playlist.name ?? "", subtitle: playlist.owner.display_name ?? "", imageURL: URL(string: playlist.images?.first?.url ?? "" ))
             cell.configure(with: viewModel)
             return cell
         }
