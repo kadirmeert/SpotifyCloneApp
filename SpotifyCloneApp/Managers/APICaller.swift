@@ -131,13 +131,132 @@ final class APICaller {
         }
         
     }
-    
     public func addTrackToPlaylist(track: AudioTrack, playlist: Playlist, completion: @escaping (Bool) -> Void) {
         
+        guard let url = URL(string: "\(Constants.baseAPIURL)/playlists/\(playlist.id)/tracks") else {
+            completion(false)
+            return
+        }
+
+        createRequest(with: url, type: .POST) { baseRequest in
+            var request = baseRequest
+            let json: [String: Any] = [
+                "uris": [
+                    "spotify:track:\(track.id)"
+                ]
+            ]
+
+            do {
+                request.httpBody = try JSONSerialization.data(withJSONObject: json, options: .fragmentsAllowed)
+                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            } catch {
+                print("Failed to serialize JSON: \(error)")
+                completion(false)
+                return
+            }
+
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    print("Request error: \(error)")
+                    DispatchQueue.main.async {
+                        completion(false)
+                    }
+                    return
+                }
+
+                guard let data = data else {
+                    print("No data received.")
+                    DispatchQueue.main.async {
+                        completion(false)
+                    }
+                    return
+                }
+
+                do {
+                    let result = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
+                    if let response = result as? [String: Any], response["snapshot_id"] != nil {
+                        DispatchQueue.main.async {
+                            completion(true)
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            completion(false)
+                        }
+                    }
+                } catch {
+                    print("JSON parsing error: \(error)")
+                    DispatchQueue.main.async {
+                        completion(false)
+                    }
+                }
+            }
+            task.resume()
+        }
     }
     
+    
     public func removeTrackFromPlaylist(track: AudioTrack, playlist: Playlist, completion: @escaping (Bool) -> Void) {
-        
+        guard let url = URL(string: "\(Constants.baseAPIURL)/playlists/\(playlist.id)/tracks") else {
+            completion(false)
+            return
+        }
+
+        createRequest(with: url, type: .DELETE) { baseRequest in
+            var request = baseRequest
+            let json: [String: Any] = [
+                "tracks": [
+                    [
+                        "uri": "spotify:track:\(track.id)"
+                    ]
+                ]
+            ]
+
+            do {
+                request.httpBody = try JSONSerialization.data(withJSONObject: json, options: .fragmentsAllowed)
+                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            } catch {
+                print("Failed to serialize JSON: \(error)")
+                completion(false)
+                return
+            }
+
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    print("Request error: \(error)")
+                    DispatchQueue.main.async {
+                        completion(false)
+                    }
+                    return
+                }
+
+                guard let data = data else {
+                    print("No data received.")
+                    DispatchQueue.main.async {
+                        completion(false)
+                    }
+                    return
+                }
+
+                do {
+                    let result = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
+                    if let response = result as? [String: Any], response["snapshot_id"] != nil {
+                        DispatchQueue.main.async {
+                            completion(true)
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            completion(false)
+                        }
+                    }
+                } catch {
+                    print("JSON parsing error: \(error)")
+                    DispatchQueue.main.async {
+                        completion(false)
+                    }
+                }
+            }
+            task.resume()
+        }
     }
 
     
@@ -311,6 +430,7 @@ final class APICaller {
     enum HTTPMethod: String {
         case GET
         case POST
+        case DELETE
     }
     
     private func createRequest(with url: URL?,type: HTTPMethod, completion: @escaping (URLRequest) -> Void) {

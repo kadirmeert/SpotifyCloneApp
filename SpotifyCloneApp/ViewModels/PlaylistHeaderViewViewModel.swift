@@ -14,3 +14,4 @@ struct PlaylistHeaderViewViewModel {
     let artworkURL: URL?
     
 }
+ 
