@@ -197,7 +197,7 @@ class HomeViewController: UIViewController {
                                      artistName: $0.artists.first?.name ?? "-")
         })))
         sections.append(.featuredPlaylists(viewModels: playlists.compactMap({
-            return FeaturedPlaylistCellViewModel(name: $0.name ?? "", artworkURL: URL(string: $0.images?.first?.url ?? "" ))
+            return FeaturedPlaylistCellViewModel(name: $0.name, artworkURL: URL(string: $0.images?.first?.url ?? "" ))
         })))
         sections.append(.recommendedTracks(viewModels: tracks.compactMap({
             return RecommendedTrackCellViewModel(name: $0.name,
@@ -263,6 +263,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+        HapticsManager.shared.vibrateForSelection()
         let section = sections[indexPath.section]
         switch section {
         case .featuredPlaylists:
