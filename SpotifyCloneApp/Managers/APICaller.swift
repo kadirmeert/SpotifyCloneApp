@@ -78,6 +78,45 @@ final class APICaller {
         }
     }
     
+    public func removeAlbumFromLibrary(album: Album, completion: @escaping (Bool) -> Void) {
+        // Construct the URL for the delete request
+        guard let url = URL(string: "\(Constants.baseAPIURL)/me/albums?ids=\(album.id)") else {
+            completion(false)
+            return
+        }
+        
+        // Create the DELETE request
+        createRequest(with: url, type: .DELETE) { baseRequest in
+            var request = baseRequest
+            
+            // Setting headers
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    print("Request error: \(error)")
+                    DispatchQueue.main.async {
+                        completion(false)
+                    }
+                    return
+                }
+                
+                guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                    print("Failed to delete album. Invalid status code.")
+                    DispatchQueue.main.async {
+                        completion(false)
+                    }
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    completion(true)
+                }
+            }
+            task.resume()
+        }
+    }
+    
     // MARK: - PlayLists
     public func getPlaylistDetails(for playList: Playlist, completion: @escaping (Result<PlaylistDetailsResponse, Error>) -> Void) {
         createRequest(with: URL(string: Constants.baseAPIURL + "/playlists/" + (playList.id)), type: .GET) { request in

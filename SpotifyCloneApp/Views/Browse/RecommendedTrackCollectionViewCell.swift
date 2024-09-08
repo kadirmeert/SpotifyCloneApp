@@ -33,6 +33,7 @@ class RecommendedTrackCollectionViewCell: UICollectionViewCell {
         label.numberOfLines = 0
         return label
     }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .secondarySystemBackground
@@ -41,7 +42,6 @@ class RecommendedTrackCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(trackNameLabel)
         contentView.addSubview(artistNameLabel)
         contentView.clipsToBounds = true
-
     }
     
     required init?(coder: NSCoder) {

@@ -11,6 +11,9 @@ class LibraryPlaylistsViewController: UIViewController {
     
     var playlists = [Playlist]()
     
+    private var tracks = [AudioTrack]()
+
+    
     public var selectionHandler: ((Playlist) -> Void)?
     
     private let noPlaylistsView = ActionLabelView()
@@ -21,6 +24,7 @@ class LibraryPlaylistsViewController: UIViewController {
         tableview.isHidden = true
         return tableview
     }()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,8 +38,8 @@ class LibraryPlaylistsViewController: UIViewController {
         if selectionHandler != nil {
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(didTapClose))
         }
-       
     }
+    
     @objc func didTapClose() {
         dismiss(animated: true, completion: nil)
     }

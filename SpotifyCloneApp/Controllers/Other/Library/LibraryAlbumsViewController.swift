@@ -11,6 +11,7 @@ class LibraryAlbumsViewController: UIViewController {
 
     var albums = [Album]()
     
+    public var selectionHandler: ((Album) -> Void)?
     
     private let noAlbumsView = ActionLabelView()
 
@@ -34,6 +35,40 @@ class LibraryAlbumsViewController: UIViewController {
         observer = NotificationCenter.default.addObserver(forName: .albumSavedNotification, object: nil, queue: .main, using: { [weak self] _ in
             self?.fetchData()
         })
+        let gesture = UILongPressGestureRecognizer(target: self, action: #selector(didLongPress(_:)))
+        tableView.addGestureRecognizer(gesture)
+    }
+    
+    @objc func didLongPress(_ gesture: UILongPressGestureRecognizer) {
+        guard gesture.state == .began else {
+            return
+        }
+        let touchPoint = gesture.location(in: tableView)
+        guard let indexPath = tableView.indexPathForRow(at: touchPoint) else {
+            return
+        }
+        let albumToDelete = albums[indexPath.row]
+        let actionSheet = UIAlertController(title: albumToDelete.name, message: "Would you like to remove this from the albums??", preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: { [weak self] _ in
+            guard let strongSelf = self else {
+                return
+            }
+            APICaller.shared.removeAlbumFromLibrary(album: albumToDelete) { success in
+                DispatchQueue.main.async {
+                    if success {
+                        self?.albums.remove(at: indexPath.row)
+                        self?.tableView.reloadData()
+                    } else {
+                        print("Failed to remove")
+                    }
+                    
+                }
+            }
+            
+        }))
+        
+        present(actionSheet,animated: true,completion: nil)
     }
     
     @objc func didTapClose() {

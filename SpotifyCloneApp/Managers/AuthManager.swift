@@ -46,8 +46,8 @@ final class AuthManager {
             return false 
         }
         let currentDate = Date()
-        let fiveMinutes: TimeInterval = 300
-        return currentDate.addingTimeInterval(fiveMinutes) >= expirationDate
+        let refreshWindow: TimeInterval = 600 // 10 minutes
+        return currentDate.addingTimeInterval(refreshWindow) >= expirationDate
     }
     public func exchangeCodeForToken(code: String, completion: @escaping ((Bool) -> Void)) {
         //Get Token
@@ -93,21 +93,21 @@ final class AuthManager {
     }
     
     private var onRefreshBlocks = [((String) -> Void)]()
+    private let queue = DispatchQueue(label: "AuthManager.queue")
     
     /// Suplies valid token to be used with API Calls
     public func withValidToken(completion: @escaping (String) -> Void) {
-        guard !refreshingToken else {
-            // Append the completion
-            onRefreshBlocks.append(completion)
-            return
+        queue.async {
+            guard !self.refreshingToken else {
+                self.onRefreshBlocks.append(completion)
+                return
+            }
         }
         if shouldRefreshToken {
             //refresh
             refreshIfNeeded { [weak self] success in
-                if success {
-                    if let token = self?.accessToken, success {
-                        completion(token)
-                    }
+                if success, let token = self?.accessToken {
+                    completion(token)
                 }
             }
         }
@@ -120,7 +120,11 @@ final class AuthManager {
             return
         }
         guard shouldRefreshToken else {
-            completion?(true)
+            if accessToken != nil {
+                completion?(true)
+            } else {
+                completion?(false)
+            }
             return
         }
         guard let refreshToken = self.refreshToken else {
@@ -153,7 +157,8 @@ final class AuthManager {
         request.setValue("Basic \(base64String)", forHTTPHeaderField: "Authorization")
         
         let task = URLSession.shared.dataTask(with: request) { [weak self] data, _, error in
-            self?.refreshingToken = false
+            guard let self = self else { return }
+            self.refreshingToken = false
             guard let data = data ,
                     error == nil else {
                 completion?(false)
@@ -161,9 +166,9 @@ final class AuthManager {
             }
             do {
                 let result = try JSONDecoder().decode(AuthResponse.self, from: data)
-                self?.onRefreshBlocks.forEach {$0(result.access_token)}
-                self?.onRefreshBlocks.removeAll()
-                self?.cacheToken(result: result)
+                self.onRefreshBlocks.forEach {$0(result.access_token)}
+                self.onRefreshBlocks.removeAll()
+                self.cacheToken(result: result)
                 completion?(true)
             } catch {
                 print(error.localizedDescription)

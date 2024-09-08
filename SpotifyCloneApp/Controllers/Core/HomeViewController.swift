@@ -54,7 +54,8 @@ class HomeViewController: UIViewController {
         configureCollectionView()
         view.addSubview(spinner)
         fetchData()
-        addLongTapGesture()
+        addLongTapGesture()        
+      
     }
     
     override func viewDidLayoutSubviews() {
@@ -241,6 +242,9 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                                                                 for: indexPath
             ) as? NewReleaseCollectionViewCell else {
                 return UICollectionViewCell()
+            }
+            for view in self.view.subviews {
+                print(view)
             }
             cell.configure(with: viewModels[indexPath.row])
             return cell
